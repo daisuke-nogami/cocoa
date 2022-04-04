@@ -21,7 +21,7 @@ ENのリスクスコアとは、「接触」時に一定の値を超えるよう
  リスク「スコア」という名前からは、なにか「リスクの大きさに比例する」ものを想像しがちであり、距離・時間と比例する関係にさせないといけないと考えがちである  例：「距離が半分ならスコアは2倍になる」「距離が10分の1ならばスコアは10倍」など   しかし、COCOAは、濃厚接触の可能性の「有無」だけを判断するものであり、その目的を踏まえると、距離が1m以内であれば、どのような距離でも15分間接触しなければ閾値を超えないようにスコアを設計しなければならない そのため、「1m以内であれば閾値を超える」「1mを越えれば閾値を大きく下回る」ような計算をする必要がある  背景知識：電波強度と距離の関係 #  パラメータ値を設計するにあたり、電波強度と距離の関係を知っておく必要があるため、ここで他の研究結果を確認する。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://cocoa-mhlw.github.io/cocoa/docs/appendix/design_for_upgrading_to_env2/"><meta property="article:section" content="docs">
-<meta property="article:modified_time" content="2022-04-05T00:06:37+09:00">
+<meta property="article:modified_time" content="2022-04-05T00:08:18+09:00">
 <title>ENv2バージョンアップに関する技術的な検討内容 | COCOA Open Source Project</title>
 <link rel=manifest href=/cocoa/manifest.json>
 <link rel=icon href=/cocoa/favicon.png type=image/x-icon>
@@ -185,7 +185,7 @@ Exposure Notification v1とv2の違い
 <li>v1では、15分間連続して条件を満たすと接触判定するため、例②のような、一瞬電波強度が弱まるような状態は接触にならない</li>
 <li>v2では、平均の電波強度別に接触の時間に係数を掛けてスコア判定するため、例②のような状況でも接触と判定する。</li>
 </ul>
-<p><img src=/cocoa/appendix/fig1.png alt=ENv1とv2の接触判定の違い></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig1.png alt=ENv1とv2の接触判定の違い></p>
 <p>※図では1分毎の電波強度を示しているが、v2では厳密には5分間までの平均値で返されることがある</p>
 <h3 id=enのリスクスコアとは接触時に一定の値を超えるよう設計された数字>
 ENのリスクスコアとは、「接触」時に一定の値を超えるよう設計された数字
@@ -201,7 +201,7 @@ ENのリスクスコアとは、「接触」時に一定の値を超えるよう
 <li>しかし、COCOAは、濃厚接触の可能性の「有無」だけを判断するものであり、その目的を踏まえると、距離が1m以内であれば、どのような距離でも15分間接触しなければ閾値を超えないようにスコアを設計しなければならない</li>
 <li>そのため、「1m以内であれば閾値を超える」「1mを越えれば閾値を大きく下回る」ような計算をする必要がある</li>
 </ul>
-<p><img src=/cocoa/appendix/fig2.png alt=設計すべきリスクスコアの形></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig2.png alt=設計すべきリスクスコアの形></p>
 <h3 id=背景知識電波強度と距離の関係>
 背景知識：電波強度と距離の関係
 <a class=anchor href=#%e8%83%8c%e6%99%af%e7%9f%a5%e8%ad%98%e9%9b%bb%e6%b3%a2%e5%bc%b7%e5%ba%a6%e3%81%a8%e8%b7%9d%e9%9b%a2%e3%81%ae%e9%96%a2%e4%bf%82>#</a>
@@ -222,7 +222,7 @@ ENのリスクスコアとは、「接触」時に一定の値を超えるよう
 </li>
 <li>通常、正規分布に沿った揺らぎは綺麗な山型を描くが、電波強度を示す単位 dB は、電力を「10を底とする常用対数」で変換したもののため、より緩やかな曲線を描くことが分かる</li>
 </ul>
-<p><img src=/cocoa/appendix/fig3.png alt=距離別の、その電波強度になる可能性の分布></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig3.png alt=距離別の、その電波強度になる可能性の分布></p>
 <h4 id=多数の測定で電波強度のブレを減らす>
 多数の測定で電波強度のブレを減らす
 <a class=anchor href=#%e5%a4%9a%e6%95%b0%e3%81%ae%e6%b8%ac%e5%ae%9a%e3%81%a7%e9%9b%bb%e6%b3%a2%e5%bc%b7%e5%ba%a6%e3%81%ae%e3%83%96%e3%83%ac%e3%82%92%e6%b8%9b%e3%82%89%e3%81%99>#</a>
@@ -238,7 +238,7 @@ ENのリスクスコアとは、「接触」時に一定の値を超えるよう
 </ul>
 </li>
 </ul>
-<p><img src=/cocoa/appendix/fig4.png alt=電波強度を多数測定することによる確率分布の変化></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig4.png alt=電波強度を多数測定することによる確率分布の変化></p>
 <h3 id=パラメータ値の設計>
 パラメータ値の設計
 <a class=anchor href=#%e3%83%91%e3%83%a9%e3%83%a1%e3%83%bc%e3%82%bf%e5%80%a4%e3%81%ae%e8%a8%ad%e8%a8%88>#</a>
@@ -250,7 +250,7 @@ ENのリスクスコアとは、「接触」時に一定の値を超えるよう
 </h4>
 <p>前述の正規分布・標準誤差を前提に計算すると、電波強度が取り得る範囲が以下の様に図示できる。
 （濃い色は±σなので、約6割の測定結果がこの範囲に入ると考えられる）</p>
-<p><img src=/cocoa/appendix/fig5.png alt=距離別の電波強度の分布></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig5.png alt=距離別の電波強度の分布></p>
 <p>この理論値が正しいかどうか、特定の距離で実機のExposure Notificationが出力する電波強度を測定し、理論値との乖離が少ないことを確認した。</p>
 <ul>
 <li>実機で計測を行う場合には、Exposure Notificatoinが出力する電波強度を測定する必要がある
@@ -267,7 +267,7 @@ ENのリスクスコアとは、「接触」時に一定の値を超えるよう
 </li>
 <li>端末の相互関係（端末の画面を正対させる／机上に横並びにする／カバンにしまう）を変えたときの電波強度の変化は、1.0m/2.0mともにあまり見られなかった</li>
 </ul>
-<p><img src=/cocoa/appendix/fig6.png alt=パラメータ設計のための実機計測結果></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig6.png alt=パラメータ設計のための実機計測結果></p>
 <h4 id=en電波強度で判定可能な距離の区分>
 EN電波強度で判定可能な距離の区分
 <a class=anchor href=#en%e9%9b%bb%e6%b3%a2%e5%bc%b7%e5%ba%a6%e3%81%a7%e5%88%a4%e5%ae%9a%e5%8f%af%e8%83%bd%e3%81%aa%e8%b7%9d%e9%9b%a2%e3%81%ae%e5%8c%ba%e5%88%86>#</a>
@@ -285,7 +285,7 @@ EN電波強度で判定可能な距離の区分
 </ul>
 </li>
 </ul>
-<p><img src=/cocoa/appendix/fig7.png alt=電波強度別の重み付けを変える効果（イメージ）></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig7.png alt=電波強度別の重み付けを変える効果（イメージ）></p>
 <p>電波強度が取り得る範囲から、1.0m/1.5m/2.0mの重なりが大きく、 2.0mを含まないように1.0m以内を判定する難しさが分かるが、電波強度をうまく区分し、重み付けを行うことで、1.0m以下や、2.0m以下を判断することを狙った。</p>
 <ul>
 <li>①…1.5m未満であることがかなり確実な範囲</li>
@@ -294,7 +294,7 @@ EN電波強度で判定可能な距離の区分
 <li>④…2.0m以上であることがかなり確実な範囲</li>
 <li>⇒①の重み付けを最も強くし、②にやや弱い重み付けをすることで1.0m以下を判断。③・④の差を設けると同時に2.0mの距離も判断できる。</li>
 </ul>
-<p><img src=/cocoa/appendix/fig8.png alt=距離別の電波強度の分布の活用イメージ></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig8.png alt=距離別の電波強度の分布の活用イメージ></p>
 <h4 id=パラメータ値attenuation-weight-閾値当初案の設定>
 パラメータ値(Attenuation, Weight, 閾値)当初案の設定
 <a class=anchor href=#%e3%83%91%e3%83%a9%e3%83%a1%e3%83%bc%e3%82%bf%e5%80%a4attenuation-weight-%e9%96%be%e5%80%a4%e5%bd%93%e5%88%9d%e6%a1%88%e3%81%ae%e8%a8%ad%e5%ae%9a>#</a>
@@ -310,7 +310,7 @@ EN電波強度で判定可能な距離の区分
 <li>1.5m/2.0m/3.0mのいずれかを取り得る距離は、更に約半分にしたウエイト（60%）とすることで、リスクスコアや接触時間の合計の情報と合わせ、将来的に接触通知を出す距離を2.0mまで伸ばしたときの影響範囲を把握出来るようにする</li>
 <li>閾値は、900秒(=15分)に130%をかけ、1170とした。</li>
 </ul>
-<p><img src=/cocoa/appendix/fig9.png alt="パラメータ値(Attenuation, Weight, 閾値)当初案"></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig9.png alt="パラメータ値(Attenuation, Weight, 閾値)当初案"></p>
 <h4 id=実測値による当初案パラメータ検証と修正>
 実測値による当初案パラメータ検証と修正
 <a class=anchor href=#%e5%ae%9f%e6%b8%ac%e5%80%a4%e3%81%ab%e3%82%88%e3%82%8b%e5%bd%93%e5%88%9d%e6%a1%88%e3%83%91%e3%83%a9%e3%83%a1%e3%83%bc%e3%82%bf%e6%a4%9c%e8%a8%bc%e3%81%a8%e4%bf%ae%e6%ad%a3>#</a>
@@ -323,7 +323,7 @@ EN電波強度で判定可能な距離の区分
 <li>また、より短距離（0.5m未満など）に設置したときの電波強度を想定すると、8分で閾値を超え、過剰に反応することも予想された。</li>
 <li>これを踏まえて、とくにiPhoneが関係する接触通知を確実に発生させるよう、パラメータの修正を行った</li>
 </ul>
-<p><img src=/cocoa/appendix/fig10.png alt=パラメータ検証のための実機計測結果></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig10.png alt=パラメータ検証のための実機計測結果></p>
 <h4 id=最終的なパラメータ値attenuation-weight-閾値>
 最終的なパラメータ値(Attenuation, Weight, 閾値)
 <a class=anchor href=#%e6%9c%80%e7%b5%82%e7%9a%84%e3%81%aa%e3%83%91%e3%83%a9%e3%83%a1%e3%83%bc%e3%82%bf%e5%80%a4attenuation-weight-%e9%96%be%e5%80%a4>#</a>
@@ -341,7 +341,7 @@ EN電波強度で判定可能な距離の区分
 <li>上記パラメータでは15分未満の接触で閾値を超えるケースがあるため、スコア判定後に総信号受信時間のチェックも追加した</li>
 <li>当初のパラメータ設計で目指した、1.0m/2.0mの接触を区別した判定は行えないパラメータだが、接触通知の確実な発生を優先して、このパラメータを本番パラメータとした</li>
 </ul>
-<p><img src=/cocoa/appendix/fig11.png alt="パラメータ値(Attenuation, Weight, 閾値)修正後"></p>
+<p><img src=/cocoa/appendix/upgrading_v2_fig11.png alt="パラメータ値(Attenuation, Weight, 閾値)修正後"></p>
 <p>※補足…最終的に設定したパラメータで近距離のウエイトを100%としたことについて</p>
 <p>修正後の設定値では、電波強度が45dBより強い接触だけの場合では、15分の接触では、900秒×100%=900となり、接触通知の閾値を超えないのでは、という懸念があるが、以下の理由から、そのような接触は起こりえないと考えた。</p>
 <ul>
